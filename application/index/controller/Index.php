@@ -4,7 +4,7 @@ namespace app\index\controller;
 use think\Controller;
 use think\Db;
 use app\index\model\Intro as IntroModel;
-
+use app\index\model\User as UserModel;
 class Index extends Controller
 {
     public function index()
@@ -28,8 +28,23 @@ class Index extends Controller
             return $data->getError();
         }
     }
-    public function myhome()
+
+    public function addIntro()
     {
-        return $this->fetch();
+        $user               = UserModel::get(1);
+        $intro               = new IntroModel();
+        $intro->content        = 'ThinkPHP5快速入门';
+        $intro->add_time = 2017-05-23;
+        $user->intro()->save($intro);
+        return '发表成功';
+    }
+    public function myhome($id=''){
+        $user=UserModel::get($id);
+//        return view('myhome',['user'=>$user]);
+        $intro_list=Db::name('intro')
+            ->where('user_id', '=',$user)
+            ->select();
+        $this->assign('intro_list',$intro_list);
+        return view('myhome',['user'=>$user]);
     }
 }

@@ -13,5 +13,9 @@ use think\Model;
 
 class Intro extends Model
 {
-
+    // 定义关联方法
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }
 }

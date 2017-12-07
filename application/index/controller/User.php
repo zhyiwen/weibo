@@ -22,8 +22,9 @@ class User extends Controller
     // 新增用户数据
     public function add()
     {
+        var_dump(input('post.'));
         $user = new UserModel;
-        if ($user->allowField(true)->save(input('post.'))) {
+        if ($user->allowField(true)->validate(true)->save(input('post.'))) {
             return '用户[ ' . $user->phone . ':' . $user->id . ' ]新增成功';
         } else {
             return $user->getError();
