@@ -9,7 +9,7 @@ class Index extends Controller
 {
     public function index()
     {
-        $intro_list=Db::name('intro')
+        $intro_list=Db::name('intro')->order('id desc')
             ->select();
 //        var_dump($intro_list);
         $this->assign('intro_list',$intro_list);
